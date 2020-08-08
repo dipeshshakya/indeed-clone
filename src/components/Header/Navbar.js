@@ -4,22 +4,27 @@ import { Typography, Link } from "@material-ui/core";
 function Navbar() {
   return (
     <div className="navbar__wrapper">
-      <div className="navbar__logo"></div>
-      <div className="navbar__primary__link">
-        <Typography>
-          <ul>
-            <li>
-              <Link href="#">Find jobs</Link>
-            </li>
-            <li>
-              <Link href="#">Company reviews</Link>
-            </li>
-            <li>
-              <Link href="#">Find Salaries</Link>
-            </li>
-          </ul>
-        </Typography>
+      <div className="navbar__right">
+        <div className="navbar__logo">
+          <img src="./logo.png" alt="logo" width="90" />
+        </div>
+        <div className="navbar__primary__link">
+          <Typography>
+            <ul>
+              <li className="active">
+                <Link href="#">Find jobs</Link>
+              </li>
+              <li>
+                <Link href="#">Company reviews</Link>
+              </li>
+              <li>
+                <Link href="#">Find Salaries</Link>
+              </li>
+            </ul>
+          </Typography>
+        </div>
       </div>
+
       <div className="navbar__secondary__link">
         <Typography>
           <ul>
