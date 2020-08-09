@@ -1,6 +1,9 @@
 * {
   margin: 0;
 }
+.header__wrapper {
+  background-color: #fff;
+}
 .navbar__logo {
   /* background-image: url("./logo.png"); */
   align-items: center;
@@ -52,7 +55,7 @@ ul {
 .form__wrapper {
   display: flex;
   justify-content: center;
-  padding-top: 5rem;
+  padding: 5rem 0;
   align-items: flex-end;
 }
 

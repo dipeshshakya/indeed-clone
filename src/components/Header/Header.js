@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import SearchFrom from "./SearchFrom";
 function Header() {
   return (
-    <div>
+    <div className="header__wrapper">
       <Navbar />
       <SearchFrom />
     </div>
