@@ -57,6 +57,7 @@ export class SearchFrom extends Component {
     this.setState({
       value: newValue,
     });
+    console.log(this.props.updateValue(this.value));
   };
 
   // Autosuggest will call this function every time you need to update suggestions.
