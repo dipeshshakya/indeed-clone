@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
+import PlacesAutocomplete from "./PlacesAutocomplete";
 const languages = [
   {
     name: "C Programming",
@@ -100,7 +101,8 @@ export class SearchFrom extends Component {
         <div className="SearchForm__whereInput">
           <label htmlFor="">where</label>
           <p>city, state/territory or postcode</p>
-          <input type="text" placeholder="city, state/territory or postcode" />
+          <PlacesAutocomplete />
+          {/* <input type="text" placeholder="city, state/territory or postcode" /> */}
         </div>
         <div className="form__button">
           <button type="submit">Find jobs</button>
