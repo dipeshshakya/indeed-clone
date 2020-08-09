@@ -25,7 +25,8 @@
 .navbar__secondary__link ul {
   display: flex;
 }
-.navbar__wrapper > ul > li {
+.navbar__primary__link li,
+.navbar__secondary__link li {
   margin: 10px 15px;
 }
 ul {
