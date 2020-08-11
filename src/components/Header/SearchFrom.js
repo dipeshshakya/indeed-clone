@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import PlacesAutocomplete from "./PlacesAutocomplete";
+import { Formik, Form } from "formik";
 const languages = [
   {
     name: "C Programming",
@@ -57,7 +58,8 @@ export class SearchFrom extends Component {
     this.setState({
       value: newValue,
     });
-    console.log(this.props.updateValue(this.value));
+    // alert(this.value);
+    // console.log(this.props.updateValue(this.value).bind());
   };
 
   // Autosuggest will call this function every time you need to update suggestions.
@@ -85,30 +87,41 @@ export class SearchFrom extends Component {
       onChange: this.onChange,
     };
     return (
-      <form className="form__wrapper">
-        <div className="SearchForm__whatInput">
-          <label htmlFor="">What</label>
-          <p>Job title, keywords, or company</p>
-          <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={renderSuggestion}
-            inputProps={inputProps}
-          />
-          {/* <input type="text" placeholder="Job title, keywords, or company" /> */}
-        </div>
-        <div className="SearchForm__whereInput">
-          <label htmlFor="">where</label>
-          <p>city, state/territory or postcode</p>
-          <PlacesAutocomplete />
-          {/* <input type="text" placeholder="city, state/territory or postcode" /> */}
-        </div>
-        <div className="form__button">
-          <button type="submit">Find jobs</button>
-        </div>
-      </form>
+      <Formik
+        initialValues={{
+          jobTitle: "",
+          location: "",
+        }}
+        onSubmit={async (values) => {
+          await new Promise((r) => setTimeout(r, 500));
+          alert(JSON.stringify(values, null, 2));
+        }}
+      >
+        <Form className="form__wrapper">
+          <div className="SearchForm__whatInput">
+            <label htmlFor="">What</label>
+            <p>Job title, keywords, or company</p>
+            <Autosuggest
+              suggestions={suggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={renderSuggestion}
+              inputProps={inputProps}
+            />
+            {/* <input type="text" placeholder="Job title, keywords, or company" /> */}
+          </div>
+          <div className="SearchForm__whereInput">
+            <label htmlFor="">where</label>
+            <p>city, state/territory or postcode</p>
+            <PlacesAutocomplete />
+            {/* <input type="text" placeholder="city, state/territory or postcode" /> */}
+          </div>
+          <div className="form__button">
+            <button type="submit">Find jobs</button>
+          </div>
+        </Form>
+      </Formik>
     );
   }
 }
