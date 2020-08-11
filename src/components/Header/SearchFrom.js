@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import PlacesAutocomplete from "./PlacesAutocomplete";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 const languages = [
   {
     name: "C Programming",
@@ -58,6 +58,7 @@ export class SearchFrom extends Component {
     this.setState({
       value: newValue,
     });
+
     // alert(this.value);
     // console.log(this.props.updateValue(this.value).bind());
   };
@@ -84,7 +85,7 @@ export class SearchFrom extends Component {
     const inputProps = {
       placeholder: "Job title, keywords, or company",
       value,
-      onChange: this.onChange,
+      onChange: this.onChange.bind(this),
     };
     return (
       <Formik
@@ -95,32 +96,57 @@ export class SearchFrom extends Component {
         onSubmit={async (values) => {
           await new Promise((r) => setTimeout(r, 500));
           alert(JSON.stringify(values, null, 2));
+          this.props.updateValue(this.values["jobTitle"]);
         }}
       >
-        <Form className="form__wrapper">
-          <div className="SearchForm__whatInput">
-            <label htmlFor="">What</label>
-            <p>Job title, keywords, or company</p>
-            <Autosuggest
-              suggestions={suggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={renderSuggestion}
-              inputProps={inputProps}
-            />
-            {/* <input type="text" placeholder="Job title, keywords, or company" /> */}
-          </div>
-          <div className="SearchForm__whereInput">
-            <label htmlFor="">where</label>
-            <p>city, state/territory or postcode</p>
-            <PlacesAutocomplete />
-            {/* <input type="text" placeholder="city, state/territory or postcode" /> */}
-          </div>
-          <div className="form__button">
-            <button type="submit">Find jobs</button>
-          </div>
-        </Form>
+        {({
+          values,
+          errors,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          setFieldValue,
+        }) => (
+          <form onSubmit={handleSubmit} className="form__wrapper">
+            <div className="SearchForm__whatInput">
+              <label htmlFor="">What</label>
+              <p>Job title, keywords, or company</p>
+              <Autosuggest
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                inputProps={inputProps}
+                name="jobTitle"
+                id="jobTitle"
+                onSuggestionSelected={(event, { suggestion, method }) => {
+                  if (method === "enter") {
+                    event.preventDefault();
+                  }
+                  this.setState({
+                    value: suggestion.name,
+                  });
+                  // const jobTitle = event.target.name;
+                  // const fvalue = event.target.value;
+
+                  setFieldValue("jobTitle", suggestion.name);
+                }}
+              />
+              {/* <input type="text" placeholder="Job title, keywords, or company" /> */}
+            </div>
+            <div className="SearchForm__whereInput">
+              <label htmlFor="">where</label>
+              <p>city, state/territory or postcode</p>
+              <PlacesAutocomplete />
+              {/* <input type="text" placeholder="city, state/territory or postcode" /> */}
+            </div>
+            <div className="form__button">
+              <button type="submit">Find jobs</button>
+            </div>
+          </form>
+        )}
       </Formik>
     );
   }
