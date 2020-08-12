@@ -95,8 +95,11 @@ export class SearchFrom extends Component {
         }}
         onSubmit={async (values) => {
           await new Promise((r) => setTimeout(r, 500));
-          alert(JSON.stringify(values, null, 2));
-          this.props.updateValue(this.values["jobTitle"]);
+          // alert(JSON.stringify(values, null, 2));
+          if (values) {
+            // console.log("value from form ", values);
+            this.props.updateValue(values["jobTitle"]);
+          }
         }}
       >
         {({
