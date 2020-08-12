@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import SearchFrom from "./SearchFrom";
+import SearchHistory from "../SearchHistory";
+
 function Header() {
   const { hValue, setHvalue } = useState(null);
-  // function handleChange(newValue) {
-  //   // setValue(newValue);
-  //   console.log("value from header", newValue);
-  //   const newData = newValue;
-  //   setValue(newData);
-  // }
-  const handleChange = (newValue) => setHvalue(newValue);
+
+  const handleChange = (newValue) => {
+    if (newValue) {
+      console.log("value from header", newValue);
+      setHvalue(newValue);
+    }
+  };
 
   return (
     <div className="header__wrapper">
       <Navbar />
-      <SearchFrom
-        updateValue={(value) => handleChange(value)}
-        searchHistoryValue={hValue}
-      />
+      <SearchFrom updateValue={handleChange} />
+      <SearchHistory searchHistoryValue={hValue} />
+
+      {/* <SearchHistory searchHistoryValue={hValue} /> */}
     </div>
   );
 }
